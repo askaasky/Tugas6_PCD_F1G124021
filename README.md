@@ -55,7 +55,7 @@ Install library yang diperlukan dengan perintah:
 pip install opencv-python numpy pandas
 ```
 
-### 4. Jalankan Program
+### 3. Jalankan Program
 Jalankan program dengan:
 ```bash
 python main.py
