@@ -11,9 +11,10 @@ Tahapan pengolahan citra yang digunakan meliputi:
 * Operasi morfologi Opening
 * Operasi morfologi Closing
 * Perhitungan jumlah foreground pixel
+* Pembuatan citra tanpa tanda tangan
 * Penentuan keberadaan tanda tangan
 
-Pada project ini, area tanda tangan yang dianalisis adalah tanda tangan Dekan pada dokumen ijazah universitas.
+Pada project ini, area tanda tangan yang dianalisis adalah tanda tangan Dekan pada dokumen ijazah universitas. Untuk pengujian citra tanpa tanda tangan, tanda tangan pada area crop dihilangkan menggunakan proses inpainting.
 
 ---
 
@@ -21,7 +22,7 @@ Pada project ini, area tanda tangan yang dianalisis adalah tanda tangan Dekan pa
 * Python
 * OpenCV
 * NumPy
-* Matplotlib
+* Pandas
 
 ---
 
@@ -37,17 +38,27 @@ Kemudian masuk ke folder project:
 ```bash
 cd Tugas6_PCD_F1G124021
 ```
+### 2. Siapkan Dataset
 
-### 2. Install Library
+Masukkan citra dokumen ijazah ke dalam folder:
+
+`TTD_ORI/`
+
+Area crop tanda tangan yang digunakan pada program adalah:
+
+```python
+CROP_TTD = (2175, 1708, 893, 337)
+
+### 3. Install Library
 Install library yang diperlukan dengan perintah:
 ```bash
-pip install opencv-python numpy matplotlib
+pip install opencv-python numpy pandas
 ```
 
-### 3. Jalankan Program
+### 4. Jalankan Program
 Jalankan program dengan:
 ```bash
-python 1863.py
+python main.py
 ```
 
 ---
@@ -60,6 +71,8 @@ Program melakukan beberapa tahap pengolahan:
 * Otsu Thresholding
 * Opening
 * Closing
+* Perhitungan foreground pixel
+* Pembuatan citra tanpa tanda tangan
 
 Hasil pengolahan disimpan pada folder:
 `Hasil/`
@@ -69,7 +82,7 @@ Hasil pengolahan disimpan pada folder:
 ## Metode yang Digunakan
 
 * **Global Thresholding**  
-  Global threshold digunakan untuk memisahkan foreground dan background menggunakan nilai ambang tertentu. Pada program ini digunakan nilai threshold 127.
+  Global threshold digunakan untuk memisahkan foreground dan background menggunakan nilai ambang tertentu. Pada program ini digunakan nilai threshold 145.
 
 * **Otsu Thresholding**  
   Metode Otsu menentukan nilai threshold secara otomatis berdasarkan distribusi intensitas citra.
@@ -80,6 +93,11 @@ Hasil pengolahan disimpan pada folder:
 * **Closing**  
   Closing digunakan untuk membantu menghubungkan bagian foreground yang terputus dan mengisi celah kecil.
 
+* **Inpainting**
+  Inpainting digunakan untuk membuat citra tanpa tanda tangan dengan menghilangkan bagian tanda tangan pada area crop.
+
+* **Foreground Pixel**
+  Jumlah foreground pixel digunakan untuk mengetahui banyaknya bagian citra yang dianggap sebagai foreground. Nilai ini kemudian digunakan untuk menentukan keberadaan tanda tangan.
 ---
 
 ## Output
@@ -92,8 +110,10 @@ Output program berupa:
 * Hasil Opening
 * Hasil Closing
 * Jumlah foreground pixel
+* Persentase foreground
 * Status keputusan (SIGNATURE PRESENT / SIGNATURE ABSENT)
-* File `rekapitulasi_hasil.csv`
+* File `hasil_threshold.csv`
+* File `hasil_pengujian.csv`
 
 ---
 
